@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub - Creator Studio</title>
+    <link rel="stylesheet" href="organizer.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="config.js"></script>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="logo">
+            <span>⚡</span>
+            <span>EventHub Pro</span>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">◐</button>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span>✨</span>
+                <span>Creator Studio</span>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#" onclick="showPage('dashboard')" class="nav-link active">
+                <span class="nav-icon">▣</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" onclick="showPage('events')" class="nav-link">
+                <span class="nav-icon">◉</span>
+                <span>My Events</span>
+            </a>
+            <a href="#" onclick="showPage('create')" class="nav-link">
+                <span class="nav-icon">+</span>
+                <span>Create Event</span>
+            </a>
+            <a href="#" onclick="showPage('analytics')" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Analytics</span>
+            </a>
+            <a href="#" onclick="showPage('profile')" class="nav-link">
+                <span class="nav-icon">◈</span>
+                <span>Profile</span>
+            </a>
+            <a href="#" onclick="showPage('settings')" class="nav-link">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="profile-avatar" id="userInitials">O</div>
+                <span id="organizerName">Organizer</span>
+            </div>
+            <button class="btn btn-outline" onclick="logout()">Logout</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page active">
+            <div class="welcome card">
+                <h1 id="welcomeMessage">Welcome back!</h1>
+                <p class="welcome-subtitle">Your canvas awaits. What extraordinary experience will you craft today?</p>
+                <div class="quick-actions">
+                    <button class="btn btn-primary" onclick="showPage('create')">✨ Begin Creating</button>
+                    <button class="btn btn-secondary" onclick="showPage('events')">✧ View Portfolio</button>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card card">
+                    <div class="stat-icon">▣</div>
+                    <div class="stat-number" id="totalEvents">0</div>
+                    <div class="stat-label">Total Events</div>
+                    <div class="stat-trend">+12% this month</div>
+                </div>
+                <div class="stat-card card">
+                    <div class="stat-icon">●</div>
+                    <div class="stat-number" id="activeEvents">0</div>
+                    <div class="stat-label">Active Events</div>
+                    <div class="stat-trend">+5% this week</div>
+                </div>
+                <div class="stat-card card">
+                    <div class="stat-icon">◉</div>
+                    <div class="stat-number" id="totalAttendees">0</div>
+                    <div class="stat-label">Total Attendees</div>
+                    <div class="stat-trend">+28% this month</div>
+                </div>
+                <div class="stat-card card">
+                    <div class="stat-icon">◈</div>
+                    <div class="stat-number">$12.5K</div>
+                    <div class="stat-label">Revenue</div>
+                    <div class="stat-trend">+18% this month</div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-section">
+                    <div class="page-header">
+                        <h1>Recent Events</h1>
+                        <p>Your latest event creations</p>
+                    </div>
+                    <div id="recentEvents" class="events-grid"></div>
+                </div>
+                
+                <div class="dashboard-sidebar">
+                    <div class="card activity-feed">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-item">
+                            <div class="activity-icon">↗</div>
+                            <div class="activity-content">
+                                <p><strong>Tech Summit 2025</strong> got 15 new registrations</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">✎</div>
+                            <div class="activity-content">
+                                <p>Event <strong>Music Fest</strong> details updated</p>
+                                <span class="activity-time">5 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">+</div>
+                            <div class="activity-content">
+                                <p>New event <strong>Workshop 2025</strong> created</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card quick-stats">
+                        <h3>Quick Stats</h3>
+                        <div class="quick-stat-item">
+                            <span class="quick-stat-label">This Week</span>
+                            <span class="quick-stat-value">127 registrations</span>
+                        </div>
+                        <div class="quick-stat-item">
+                            <span class="quick-stat-label">Top Event</span>
+                            <span class="quick-stat-value">Tech Summit 2025</span>
+                        </div>
+                        <div class="quick-stat-item">
+                            <span class="quick-stat-label">Avg. Attendance</span>
+                            <span class="quick-stat-value">85%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Events Page -->
+        <div id="events" class="page">
+            <div class="page-header">
+                <h1>My Events</h1>
+                <p>Manage all your created events</p>
+            </div>
+            <div id="allEvents" class="events-grid"></div>
+        </div>
+
+        <!-- Create Event Page -->
+        <div id="create" class="page">
+            <div class="page-header">
+                <h1>Create New Event</h1>
+                <p>Bring your vision to life</p>
+            </div>
+            <div class="form-container card">
+                <div id="createMessage"></div>
+                <form id="createEventForm">
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventDate">Date</label>
+                            <input type="date" id="eventDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventTime">Time</label>
+                            <input type="time" id="eventTime" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventLocation">Location</label>
+                        <input type="text" id="eventLocation" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventCapacity">Capacity</label>
+                            <input type="number" id="eventCapacity" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventCategory">Category</label>
+                            <select id="eventCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="Music">Music</option>
+                                <option value="Tech">Technology</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Business">Business</option>
+                                <option value="Education">Education</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Event</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Event Details Page -->
+        <div id="eventDetails" class="page">
+            <div id="eventDetailsContent"></div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile" class="page">
+            <div class="page-header">
+                <h1>Profile Settings</h1>
+                <p>Manage your account information</p>
+            </div>
+            <div class="form-container card">
+                <div id="profileMessage"></div>
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label for="profileName">Name</label>
+                        <input type="text" id="profileName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEmail">Email</label>
+                        <input type="email" id="profileEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePhone">Phone</label>
+                        <input type="tel" id="profilePhone">
+                    </div>
+                    <div class="form-group">
+                        <label for="profileOrganization">Organization</label>
+                        <input type="text" id="profileOrganization">
+                    </div>
+                    <div class="form-group">
+                        <label for="profileBio">Bio</label>
+                        <textarea id="profileBio"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Analytics Page -->
+        <div id="analytics" class="page">
+            <div class="page-header">
+                <h1>Analytics Dashboard</h1>
+                <p>Insights and performance metrics</p>
+            </div>
+            <div class="analytics-grid">
+                <div class="card analytics-card">
+                    <h3>Event Performance</h3>
+                    <div class="chart-placeholder">▢ Chart will be here</div>
+                </div>
+                <div class="card analytics-card">
+                    <h3>Registration Trends</h3>
+                    <div class="chart-placeholder">▤ Chart will be here</div>
+                </div>
+                <div class="card analytics-card">
+                    <h3>Popular Categories</h3>
+                    <div class="chart-placeholder">◉ Chart will be here</div>
+                </div>
+                <div class="card analytics-card">
+                    <h3>Revenue Growth</h3>
+                    <div class="chart-placeholder">↗ Chart will be here</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings Page -->
+        <div id="settings" class="page">
+            <div class="page-header">
+                <h1>Settings</h1>
+                <p>Customize your experience</p>
+            </div>
+            <div class="form-container card">
+                <div class="settings-section">
+                    <h3>Notifications</h3>
+                    <div class="setting-item">
+                        <label class="toggle-label">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                            Email notifications for new registrations
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="toggle-label">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                            SMS alerts for event updates
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Privacy</h3>
+                    <div class="setting-item">
+                        <label class="toggle-label">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                            Make profile public
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let events = [];
+        let attendees = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            currentUser = JSON.parse(localStorage.getItem('user'));
+            console.log('Current user:', currentUser);
+            if (!currentUser || currentUser.role !== 'organizer') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const userName = currentUser.name || 'Organizer';
+            document.getElementById('organizerName').textContent = userName;
+            document.getElementById('welcomeMessage').textContent = `Welcome back, ${userName}!`;
+            document.getElementById('userInitials').textContent = userName.charAt(0).toUpperCase();
+            
+            loadEvents();
+            loadProfile();
+        });
+
+        // Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            if (event && event.target) event.target.classList.add('active');
+            
+            if (pageId === 'events') loadEvents();
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function logout() {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        // Load Events
+        async function loadEvents() {
+            try {
+                const userId = currentUser._id || currentUser.id || currentUser.userId;
+                console.log('Loading events for user ID:', userId);
+                console.log('Full currentUser object:', currentUser);
+                if (!userId) {
+                    console.error('No user ID found in any field:', currentUser);
+                    // Try to get fresh user data
+                    const freshUser = JSON.parse(localStorage.getItem('user'));
+                    console.log('Fresh user from localStorage:', freshUser);
+                    return;
+                }
+                const response = await fetch(`${window.CONFIG.API_BASE_URL}/api/events/organizer/${userId}`);
+                if (response.ok) {
+                    events = await response.json();
+                    updateDashboardStats();
+                    renderEvents();
+                }
+            } catch (error) {
+                console.error('Error loading events:', error);
+            }
+        }
+
+        function updateDashboardStats() {
+            const activeEvents = events.filter(e => e.status === 'active');
+            document.getElementById('totalEvents').textContent = events.length;
+            document.getElementById('activeEvents').textContent = activeEvents.length;
+            
+            // Calculate total attendees
+            const totalAttendees = events.reduce((sum, event) => sum + (event.attendeeCount || 0), 0);
+            document.getElementById('totalAttendees').textContent = totalAttendees;
+        }
+
+        function renderEvents() {
+            const recentContainer = document.getElementById('recentEvents');
+            const allContainer = document.getElementById('allEvents');
+            
+            const eventCards = events.map(event => createEventCard(event)).join('');
+            const recentCards = events.slice(0, 3).map(event => createEventCard(event)).join('');
+            
+            recentContainer.innerHTML = recentCards;
+            allContainer.innerHTML = eventCards;
+        }
+
+        function createEventCard(event) {
+            const date = new Date(event.date).toLocaleDateString();
+            const statusClass = event.status === 'active' ? 'status-active' : 'status-cancelled';
+            const attendanceRate = Math.round(((event.attendeeCount || 0) / event.capacity) * 100);
+            
+            return `
+                <div class="event-card card">
+                    <div class="event-header">
+                        <div class="event-category">${event.category || 'General'}</div>
+                        <div class="event-title">${event.title}</div>
+                        <div class="event-meta">▷ ${date}</div>
+                        <div class="event-meta">◉ ${event.location}</div>
+                        <div class="event-meta">◈ ${event.attendeeCount || 0}/${event.capacity} attendees (${attendanceRate}%)</div>
+                        <div class="attendance-bar">
+                            <div class="attendance-fill" style="width: ${attendanceRate}%"></div>
+                        </div>
+                        <span class="event-status ${statusClass}">${event.status}</span>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-primary" onclick="viewEventDetails('${event._id}')">▤ Details</button>
+                        <button class="btn btn-secondary" onclick="editEvent('${event._id}')">✎ Edit</button>
+                        ${event.status === 'active' ? 
+                            `<button class="btn btn-danger" onclick="cancelEvent('${event._id}')">× Cancel</button>` : 
+                            `<button class="btn btn-danger" onclick="deleteEvent('${event._id}')">⌫ Delete</button>`
+                        }
+                    </div>
+                </div>
+            `;
+        }
+
+        // Create Event
+        document.getElementById('createEventForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                title: document.getElementById('eventTitle').value.trim(),
+                description: document.getElementById('eventDescription').value.trim(),
+                date: document.getElementById('eventDate').value,
+                time: document.getElementById('eventTime').value,
+                location: document.getElementById('eventLocation').value.trim(),
+                capacity: parseInt(document.getElementById('eventCapacity').value),
+                category: document.getElementById('eventCategory').value,
+                organizerId: currentUser._id || currentUser.id
+            };
+            
+            // Validate required fields
+            if (!formData.title || !formData.description || !formData.date || !formData.time || !formData.location || !formData.capacity || !formData.category || !formData.organizerId) {
+                messageDiv.innerHTML = '<div class="error">Please fill in all required fields</div>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${window.CONFIG.API_BASE_URL}/api/events`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                const messageDiv = document.getElementById('createMessage');
+
+                if (response.ok) {
+                    messageDiv.innerHTML = '<div class="success">Event created successfully!</div>';
+                    document.getElementById('createEventForm').reset();
+                    loadEvents();
+                    setTimeout(() => showPage('events'), 1500);
+                } else {
+                    console.error('Event creation failed:', response.status, result);
+                    messageDiv.innerHTML = `<div class="error">${result.error || 'Failed to create event'}</div>`;
+                }
+            } catch (error) {
+                document.getElementById('createMessage').innerHTML = '<div class="error">Network error. Please try again.</div>';
+            }
+        });
+
+        // Event Actions
+        function editEvent(eventId) {
+            // For now, show a message - you can implement edit functionality later
+            alert('Edit functionality coming soon!');
+        }
+
+        async function viewEventDetails(eventId) {
+            try {
+                const response = await fetch(`${window.CONFIG.API_BASE_URL}/api/events/${eventId}/attendees`);
+                if (response.ok) {
+                    const attendees = await response.json();
+                    const event = events.find(e => e._id === eventId);
+                    
+                    const attendeesList = attendees.map(a => 
+                        `<tr><td>${a.name}</td><td>${a.email}</td><td>${a.phone || 'N/A'}</td></tr>`
+                    ).join('');
+
+                    document.getElementById('eventDetailsContent').innerHTML = `
+                        <div class="form-container">
+                            <h1>${event.title}</h1>
+                            <p><strong>Description:</strong> ${event.description}</p>
+                            <p><strong>Date:</strong> ${new Date(event.date).toLocaleDateString()}</p>
+                            <p><strong>Location:</strong> ${event.location}</p>
+                            <p><strong>Capacity:</strong> ${event.attendeeCount || 0}/${event.capacity}</p>
+                            
+                            <h2 class="mb-2">Attendees (${attendees.length})</h2>
+                            <button class="btn btn-secondary mb-2" onclick="exportAttendees('${eventId}')">Export CSV</button>
+                            <table class="attendees-table">
+                                <thead>
+                                    <tr><th>Name</th><th>Email</th><th>Phone</th></tr>
+                                </thead>
+                                <tbody>${attendeesList}</tbody>
+                            </table>
+                            
+                            <div style="margin-top: 2rem;">
+                                <button class="btn btn-secondary" onclick="showPage('events')">Back to Events</button>
+                                ${event.status === 'active' ? 
+                                    `<button class="btn btn-danger" onclick="cancelEvent('${eventId}')">Cancel Event</button>` : ''
+                                }
+                            </div>
+                        </div>
+                    `;
+                    showPage('eventDetails');
+                }
+            } catch (error) {
+                console.error('Error loading event details:', error);
+            }
+        }
+
+        async function cancelEvent(eventId) {
+            if (confirm('Are you sure you want to cancel this event?')) {
+                try {
+                    const response = await fetch(`${window.CONFIG.API_BASE_URL}/api/events/${eventId}/cancel`, { method: 'PUT' });
+                    if (response.ok) {
+                        loadEvents();
+                    }
+                } catch (error) {
+                    console.error('Error cancelling event:', error);
+                }
+            }
+        }
+
+        async function deleteEvent(eventId) {
+            if (confirm('Are you sure you want to delete this event?')) {
+                try {
+                    const response = await fetch(`${window.CONFIG.API_BASE_URL}/api/events/${eventId}`, { method: 'DELETE' });
+                    if (response.ok) {
+                        loadEvents();
+                    }
+                } catch (error) {
+                    console.error('Error deleting event:', error);
+                }
+            }
+        }
+
+        function exportAttendees(eventId) {
+            window.open(`${window.CONFIG.API_BASE_URL}/api/events/${eventId}/attendees/export`, '_blank');
+        }
+
+        // Profile Management
+        function loadProfile() {
+            document.getElementById('profileName').value = currentUser.name || '';
+            document.getElementById('profileEmail').value = currentUser.email || '';
+            document.getElementById('profilePhone').value = currentUser.phone || '';
+            document.getElementById('profileOrganization').value = currentUser.organization || '';
+            document.getElementById('profileBio').value = currentUser.bio || '';
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('profileName').value,
+                email: document.getElementById('profileEmail').value,
+                phone: document.getElementById('profilePhone').value,
+                organization: document.getElementById('profileOrganization').value,
+                bio: document.getElementById('profileBio').value
+            };
+
+            try {
+                const response = await fetch(`${window.CONFIG.API_BASE_URL}/api/users/${currentUser._id || currentUser.id || currentUser.userId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                const messageDiv = document.getElementById('profileMessage');
+
+                if (response.ok) {
+                    messageDiv.innerHTML = '<div class="success">Profile updated successfully!</div>';
+                    currentUser = { ...currentUser, ...formData };
+                    localStorage.setItem('user', JSON.stringify(currentUser));
+                    document.getElementById('organizerName').textContent = currentUser.name;
+                } else {
+                    messageDiv.innerHTML = `<div class="error">${result.error}</div>`;
+                }
+            } catch (error) {
+                document.getElementById('profileMessage').innerHTML = '<div class="error">Network error. Please try again.</div>';
+            }
+        });
+
+        // Theme toggle
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+        
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('profileDropdown');
+            if (!e.target.closest('.profile-menu') && dropdown) {
+                dropdown.style.display = 'none';
+            }
+        });
+        
+        // Sidebar functions
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        }
+        
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.querySelector('.sidebar-overlay').classList.remove('active');
+        }
+        
+        // Load theme on page load
+        loadTheme();
+    </script>
+    
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+</body>
+</html>

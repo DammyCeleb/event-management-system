@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub - Discover Extraordinary Experiences</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="attendee.css">
+    <script src="config.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">
+                <span>🎪</span>
+                <span>EventHub</span>
+            </a>
+            
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Search events, categories, locations..." id="searchInput">
+            </div>
+            
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-page="events">Events</a>
+                <a href="#" class="nav-link" data-page="my-events">My Events</a>
+                <a href="#" class="nav-link" data-page="profile">Profile</a>
+                
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">◐</button>
+                
+                <div class="profile-menu">
+                    <button class="profile-btn">
+                        <div class="profile-avatar" id="userInitials">A</div>
+                        <span id="userName">Attendee</span>
+                    </button>
+                </div>
+                
+                <button class="btn btn-outline" onclick="attendee.logout()">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Events Page -->
+        <section id="events" class="page-section active">
+            <!-- Hero Section -->
+            <div class="hero">
+                <h1 class="hero-title">Discover Extraordinary Experiences</h1>
+                <p class="hero-subtitle">Immerse yourself in carefully curated events that inspire, connect, and transform your perspective on what's possible</p>
+                <div style="margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="document.getElementById('searchInput').focus()" style="font-size: 1rem; padding: 1rem 2rem;">
+                        <span>✨</span>
+                        <span>Begin Your Journey</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                    <span style="font-size: 1.5rem;">✦</span>
+                    <h3 class="filters-title" style="margin: 0;">Refine Your Discovery</h3>
+                </div>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label class="filter-label">✧ Experience Type</label>
+                        <select class="filter-select" id="categoryFilter">
+                            <option value="all">All Experiences</option>
+                            <option value="tech">✨ Innovation & Technology</option>
+                            <option value="music">🎵 Musical Journeys</option>
+                            <option value="sports">🏆 Athletic Excellence</option>
+                            <option value="business">💼 Professional Growth</option>
+                            <option value="art">🎨 Creative Expression</option>
+                            <option value="food">🍽️ Culinary Adventures</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">📅 Date</label>
+                        <select class="filter-select" id="dateFilter">
+                            <option value="all">All Dates</option>
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">📍 Location</label>
+                        <select class="filter-select" id="locationFilter">
+                            <option value="all">All Locations</option>
+                            <option value="lagos">🏢 Lagos</option>
+                            <option value="abuja">🏢 Abuja</option>
+                            <option value="kano">🏢 Kano</option>
+                            <option value="online">💻 Online</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Grid -->
+            <div class="events-grid" id="eventsGrid">
+                <!-- Events will be loaded here -->
+            </div>
+        </section>
+
+        <!-- My Events Page -->
+        <section id="my-events" class="page-section">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                <span style="font-size: 2rem;">🎟️</span>
+                <h1 style="font-size: 2rem; font-weight: 700; margin: 0;">My Events</h1>
+            </div>
+            <div class="my-events-grid" id="myEventsGrid">
+                <!-- My events will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Profile Page -->
+        <section id="profile" class="page-section">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                <span style="font-size: 2rem;">👤</span>
+                <h1 style="font-size: 2rem; font-weight: 700; margin: 0;">Profile Settings</h1>
+            </div>
+            <div class="profile-form">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                    <span style="font-size: 1.5rem;">⚙️</span>
+                    <h3 style="margin: 0;">Update Your Information</h3>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" id="profileName" placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" id="profileEmail" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-input" id="profilePhone" placeholder="Enter your phone number">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Organization</label>
+                    <input type="text" class="form-input" id="profileOrganization" placeholder="Enter your organization">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">New Password (leave blank to keep current)</label>
+                    <input type="password" class="form-input" id="profilePassword" placeholder="Enter new password">
+                </div>
+                
+                <button class="btn btn-primary" onclick="attendee.updateProfile()" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                    <span>✨</span>
+                    <span>Update Profile</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Event Details Modal -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Event Details</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Event details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="attendee.js"></script>
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+        
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        
+        // Load theme on page load
+        document.addEventListener('DOMContentLoaded', loadTheme);
+    </script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎪 Admin Dashboard - EventHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="config.js"></script>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Fun Mode Toggle -->
+    <div class="fun-mode-toggle">
+        <button id="funModeBtn" class="fun-btn" onclick="dashboard.toggleFunMode()">
+            <span class="fun-icon">🎉</span>
+            <span class="fun-text">Fun Mode</span>
+        </button>
+    </div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <a href="#" class="logo">
+                <span>🎪</span>
+                <span>EventHub Admin</span>
+            </a>
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Search users, events..." id="searchInput">
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="notification-btn" onclick="dashboard.showRandomNotification()">
+                <span class="notification-icon">🔔</span>
+                <span class="notification-badge pulse"></span>
+            </button>
+            <div class="profile-menu">
+                <button class="profile-btn">
+                    <div class="profile-avatar" id="userInitials">A</div>
+                    <span id="userName">Admin</span>
+                    <span>⚙️</span>
+                </button>
+            </div>
+            <button class="btn btn-outline" onclick="dashboard.logout()">Logout</button>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="nav-section">
+                <div class="nav-title">Main</div>
+                <button class="nav-item active" data-page="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-page="users">
+                    <span class="nav-icon">👥</span>
+                    <span>Users</span>
+                </button>
+                <button class="nav-item" data-page="events">
+                    <span class="nav-icon">🎪</span>
+                    <span>Events</span>
+                </button>
+                <button class="nav-item" data-page="registrations">
+                    <span class="nav-icon">📝</span>
+                    <span>Registrations</span>
+                </button>
+            </div>
+            <div class="nav-section">
+                <div class="nav-title">Analytics</div>
+                <button class="nav-item" data-page="analytics">
+                    <span class="nav-icon">📈</span>
+                    <span>Reports</span>
+                </button>
+            </div>
+            <div class="nav-section">
+                <div class="nav-title">System</div>
+                <button class="nav-item" data-page="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Settings</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <section id="dashboard" class="page-section active">
+                <div class="page-header">
+                    <div class="breadcrumb">
+                        <span>Admin</span>
+                        <span>›</span>
+                        <span>Dashboard</span>
+                    </div>
+                    <h1 class="page-title">Dashboard Overview</h1>
+                    <p class="page-subtitle">Monitor your event management platform performance</p>
+                </div>
+
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Stats will be loaded here -->
+                </div>
+                
+                <!-- Fun Dashboard Widget -->
+                <div class="card fun-widget" id="funWidget" style="display: none;">
+                    <div class="card-header">
+                        <h3 class="card-title">🎮 Admin Power-Ups</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-primary btn-sm" onclick="dashboard.launchConfetti()">🎊 Confetti</button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="power-ups-grid">
+                            <button class="power-up-btn" onclick="dashboard.rainbowMode()">
+                                <span class="power-icon">🌈</span>
+                                <span>Rainbow Mode</span>
+                            </button>
+                            <button class="power-up-btn" onclick="dashboard.matrixMode()">
+                                <span class="power-icon">💊</span>
+                                <span>Matrix Mode</span>
+                            </button>
+                            <button class="power-up-btn" onclick="dashboard.shakeIt()">
+                                <span class="power-icon">🌪️</span>
+                                <span>Shake It!</span>
+                            </button>
+                            <button class="power-up-btn" onclick="dashboard.darkMode()">
+                                <span class="power-icon">🌙</span>
+                                <span>Dark Mode</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card hover-lift">
+                    <div class="card-header">
+                        <h3 class="card-title">🔥 Recent Activities</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-outline btn-sm" onclick="dashboard.animateActivities()">✨ Animate</button>
+                            <button class="btn btn-outline btn-sm">View All</button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="activity-feed" id="recentActivities">
+                            <!-- Activities will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Users Page -->
+            <section id="users" class="page-section">
+                <div class="page-header">
+                    <div class="breadcrumb">
+                        <span>Admin</span>
+                        <span>›</span>
+                        <span>Users</span>
+                    </div>
+                    <h1 class="page-title">User Management</h1>
+                    <p class="page-subtitle">Manage all users, organizers, and attendees</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All Users</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-primary btn-sm">Add User</button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTableBody">
+                                    <!-- Users will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Events Page -->
+            <section id="events" class="page-section">
+                <div class="page-header">
+                    <div class="breadcrumb">
+                        <span>Admin</span>
+                        <span>›</span>
+                        <span>Events</span>
+                    </div>
+                    <h1 class="page-title">Event Management</h1>
+                    <p class="page-subtitle">Manage all events and their details</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All Events</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-outline btn-sm">Export</button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Organizer</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="eventsTableBody">
+                                    <!-- Events will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Registrations Page -->
+            <section id="registrations" class="page-section">
+                <div class="page-header">
+                    <div class="breadcrumb">
+                        <span>Admin</span>
+                        <span>›</span>
+                        <span>Registrations</span>
+                    </div>
+                    <h1 class="page-title">Event Registrations</h1>
+                    <p class="page-subtitle">View and manage all event registrations</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All Registrations</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-outline btn-sm">Filter</button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Attendee</th>
+                                        <th>Registration Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="registrationsTableBody">
+                                    <!-- Registrations will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Page -->
+            <section id="analytics" class="page-section">
+                <div class="page-header">
+                    <div class="breadcrumb">
+                        <span>Admin</span>
+                        <span>›</span>
+                        <span>Analytics</span>
+                    </div>
+                    <h1 class="page-title">Analytics & Reports</h1>
+                    <p class="page-subtitle">Insights and trends for your events</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Registrations Over Time</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container">
+                                <canvas id="registrationsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Top Events</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container">
+                                <canvas id="topEventsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Event Status Distribution</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="chart-container">
+                            <canvas id="eventStatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section id="settings" class="page-section">
+                <div class="page-header">
+                    <div class="breadcrumb">
+                        <span>Admin</span>
+                        <span>›</span>
+                        <span>Settings</span>
+                    </div>
+                    <h1 class="page-title">Settings</h1>
+                    <p class="page-subtitle">Manage your profile and system configuration</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Admin Profile</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" id="adminName" placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-input" id="adminEmail" placeholder="Enter your email">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">New Password</label>
+                                <input type="password" class="form-input" id="adminPassword" placeholder="Enter new password">
+                            </div>
+                            <button class="btn btn-primary" onclick="dashboard.updateProfile()">Update Profile</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">System Settings</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-group">
+                                <label class="form-label">Max Attendees Per Event</label>
+                                <input type="number" class="form-input" id="maxAttendees" value="100">
+                            </div>
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" id="autoApproval">
+                                    <span>Auto-approve new events</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" id="emailNotifications">
+                                    <span>Send email notifications</span>
+                                </label>
+                            </div>
+                            <button class="btn btn-primary" onclick="dashboard.updateSettings()">Save Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
