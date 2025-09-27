@@ -9,37 +9,53 @@
     <script src="config.js"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav-container">
-            <a href="#" class="logo">
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="logo">
+            <span>🎪</span>
+            <span>EventHub</span>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">◐</button>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
                 <span>🎪</span>
                 <span>EventHub</span>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" placeholder="Search events..." id="searchInput">
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#" onclick="attendee.showPage('events')" class="nav-link active">
+                <span class="nav-icon">🎪</span>
+                <span>Events</span>
             </a>
-            
-            <div class="search-container">
-                <span class="search-icon">🔍</span>
-                <input type="text" class="search-input" placeholder="Search events, categories, locations..." id="searchInput">
-            </div>
-            
-            <div class="nav-links">
-                <a href="#" class="nav-link active" data-page="events">Events</a>
-                <a href="#" class="nav-link" data-page="my-events">My Events</a>
-                <a href="#" class="nav-link" data-page="profile">Profile</a>
-                
-                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">◐</button>
-                
-                <div class="profile-menu">
-                    <button class="profile-btn">
-                        <div class="profile-avatar" id="userInitials">A</div>
-                        <span id="userName">Attendee</span>
-                    </button>
-                </div>
-                
-                <button class="btn btn-outline" onclick="attendee.logout()">Logout</button>
-            </div>
+            <a href="#" onclick="attendee.showPage('my-events')" class="nav-link">
+                <span class="nav-icon">🎟️</span>
+                <span>My Events</span>
+            </a>
+            <a href="#" onclick="attendee.showPage('profile')" class="nav-link">
+                <span class="nav-icon">👤</span>
+                <span>Profile</span>
+            </a>
         </nav>
-    </header>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="profile-avatar" id="userInitials">A</div>
+                <span id="userName">Attendee</span>
+            </div>
+            <button class="btn btn-outline" onclick="attendee.logout()">Logout</button>
+        </div>
+    </aside>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -174,6 +190,9 @@
     </div>
 
     <script src="attendee.js"></script>
+    
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
     <script>
         // Theme toggle
         function toggleTheme() {
@@ -192,6 +211,17 @@
         
         // Load theme on page load
         document.addEventListener('DOMContentLoaded', loadTheme);
+        
+        // Sidebar functions
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        }
+        
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.querySelector('.sidebar-overlay').classList.remove('active');
+        }
     </script>
 </body>
 </html>

@@ -17,6 +17,12 @@
                 <span>EventHub</span>
             </a>
             
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
             <div class="nav-links" id="navLinks">
                 <a href="#events" class="nav-link">Browse Events</a>
                 <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">◐</button>
@@ -242,6 +248,14 @@
         
         // Load theme on page load
         loadTheme();
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.getElementById('mobileMenuToggle');
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
         
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
