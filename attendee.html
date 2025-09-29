@@ -5,45 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EventHub - Discover Extraordinary Experiences</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="attendee.css">
     <script src="config.js"></script>
 </head>
 <body>
     <!-- Mobile Header -->
     <header class="mobile-header">
-        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <div class="logo">
-            <span>🎪</span>
+            <i class="fas fa-calendar-alt"></i>
             <span>EventHub</span>
         </div>
-        <button class="theme-toggle" onclick="toggleTheme()">◐</button>
+        <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
     </header>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="logo">
-                <span>🎪</span>
+                <i class="fas fa-calendar-alt"></i>
                 <span>EventHub</span>
             </div>
         </div>
         
         <div class="search-container">
-            <span class="search-icon">🔍</span>
+            <i class="fas fa-search search-icon"></i>
             <input type="text" class="search-input" placeholder="Search events..." id="searchInput">
         </div>
         
         <nav class="sidebar-nav">
             <a href="#" onclick="attendee.showPage('events')" class="nav-link active">
-                <span class="nav-icon">🎪</span>
+                <i class="fas fa-calendar-alt nav-icon"></i>
                 <span>Events</span>
             </a>
             <a href="#" onclick="attendee.showPage('my-events')" class="nav-link">
-                <span class="nav-icon">🎟️</span>
+                <i class="fas fa-ticket-alt nav-icon"></i>
                 <span>My Events</span>
             </a>
             <a href="#" onclick="attendee.showPage('profile')" class="nav-link">
-                <span class="nav-icon">👤</span>
+                <i class="fas fa-user nav-icon"></i>
                 <span>Profile</span>
             </a>
         </nav>
@@ -67,7 +68,7 @@
                 <p class="hero-subtitle">Immerse yourself in carefully curated events that inspire, connect, and transform your perspective on what's possible</p>
                 <div style="margin-top: 2rem;">
                     <button class="btn btn-primary" onclick="document.getElementById('searchInput').focus()" style="font-size: 1rem; padding: 1rem 2rem;">
-                        <span>✨</span>
+                        <i class="fas fa-star"></i>
                         <span>Begin Your Journey</span>
                     </button>
                 </div>
@@ -76,24 +77,24 @@
             <!-- Filters -->
             <div class="filters">
                 <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                    <span style="font-size: 1.5rem;">✦</span>
+                    <i class="fas fa-filter" style="font-size: 1.5rem; color: var(--primary);"></i>
                     <h3 class="filters-title" style="margin: 0;">Refine Your Discovery</h3>
                 </div>
                 <div class="filters-grid">
                     <div class="filter-group">
-                        <label class="filter-label">✧ Experience Type</label>
+                        <label class="filter-label"><i class="fas fa-tag"></i> Experience Type</label>
                         <select class="filter-select" id="categoryFilter">
                             <option value="all">All Experiences</option>
-                            <option value="tech">✨ Innovation & Technology</option>
-                            <option value="music">🎵 Musical Journeys</option>
-                            <option value="sports">🏆 Athletic Excellence</option>
-                            <option value="business">💼 Professional Growth</option>
-                            <option value="art">🎨 Creative Expression</option>
-                            <option value="food">🍽️ Culinary Adventures</option>
+                            <option value="tech">Innovation & Technology</option>
+                            <option value="music">Musical Journeys</option>
+                            <option value="sports">Athletic Excellence</option>
+                            <option value="business">Professional Growth</option>
+                            <option value="art">Creative Expression</option>
+                            <option value="food">Culinary Adventures</option>
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label">📅 Date</label>
+                        <label class="filter-label"><i class="fas fa-calendar"></i> Date</label>
                         <select class="filter-select" id="dateFilter">
                             <option value="all">All Dates</option>
                             <option value="today">Today</option>
@@ -102,13 +103,13 @@
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label">📍 Location</label>
+                        <label class="filter-label"><i class="fas fa-map-marker-alt"></i> Location</label>
                         <select class="filter-select" id="locationFilter">
                             <option value="all">All Locations</option>
-                            <option value="lagos">🏢 Lagos</option>
-                            <option value="abuja">🏢 Abuja</option>
-                            <option value="kano">🏢 Kano</option>
-                            <option value="online">💻 Online</option>
+                            <option value="lagos">Lagos</option>
+                            <option value="abuja">Abuja</option>
+                            <option value="kano">Kano</option>
+                            <option value="online">Online</option>
                         </select>
                     </div>
                 </div>
@@ -123,7 +124,7 @@
         <!-- My Events Page -->
         <section id="my-events" class="page-section">
             <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
-                <span style="font-size: 2rem;">🎟️</span>
+                <i class="fas fa-ticket-alt" style="font-size: 2rem; color: var(--primary);"></i>
                 <h1 style="font-size: 2rem; font-weight: 700; margin: 0;">My Events</h1>
             </div>
             <div class="my-events-grid" id="myEventsGrid">
@@ -134,12 +135,12 @@
         <!-- Profile Page -->
         <section id="profile" class="page-section">
             <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
-                <span style="font-size: 2rem;">👤</span>
+                <i class="fas fa-user" style="font-size: 2rem; color: var(--primary);"></i>
                 <h1 style="font-size: 2rem; font-weight: 700; margin: 0;">Profile Settings</h1>
             </div>
             <div class="profile-form">
                 <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                    <span style="font-size: 1.5rem;">⚙️</span>
+                    <i class="fas fa-cog" style="font-size: 1.5rem; color: var(--primary);"></i>
                     <h3 style="margin: 0;">Update Your Information</h3>
                 </div>
                 
@@ -169,7 +170,7 @@
                 </div>
                 
                 <button class="btn btn-primary" onclick="attendee.updateProfile()" style="width: 100%; justify-content: center; margin-top: 1rem;">
-                    <span>✨</span>
+                    <i class="fas fa-save"></i>
                     <span>Update Profile</span>
                 </button>
             </div>

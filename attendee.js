@@ -25,14 +25,7 @@ class AttendeeDashboard {
   }
 
   setupEventListeners() {
-    // Navigation
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const page = link.dataset.page;
-        this.showPage(page);
-      });
-    });
+    // Navigation is handled by onclick attributes in HTML
 
     // Search
     document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -66,13 +59,24 @@ class AttendeeDashboard {
     document.querySelectorAll('.nav-link').forEach(link => {
       link.classList.remove('active');
     });
-    document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+    
+    // Find the nav link that corresponds to this page
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      if (link.onclick && link.onclick.toString().includes(`'${pageId}'`)) {
+        link.classList.add('active');
+      }
+    });
 
     // Update content
     document.querySelectorAll('.page-section').forEach(section => {
       section.classList.remove('active');
     });
-    document.getElementById(pageId).classList.add('active');
+    
+    const targetSection = document.getElementById(pageId);
+    if (targetSection) {
+      targetSection.classList.add('active');
+    }
 
     this.currentPage = pageId;
 

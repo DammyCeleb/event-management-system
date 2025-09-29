@@ -29,27 +29,27 @@
         </div>
         
         <nav class="sidebar-nav">
-            <a href="#" onclick="showPage('dashboard')" class="nav-link active">
+            <a href="#" onclick="showPage('dashboard'); closeSidebar();" class="nav-link active">
                 <span class="nav-icon">▣</span>
                 <span>Dashboard</span>
             </a>
-            <a href="#" onclick="showPage('events')" class="nav-link">
+            <a href="#" onclick="showPage('events'); closeSidebar();" class="nav-link">
                 <span class="nav-icon">◉</span>
                 <span>My Events</span>
             </a>
-            <a href="#" onclick="showPage('create')" class="nav-link">
+            <a href="#" onclick="showPage('create'); closeSidebar();" class="nav-link">
                 <span class="nav-icon">+</span>
                 <span>Create Event</span>
             </a>
-            <a href="#" onclick="showPage('analytics')" class="nav-link">
+            <a href="#" onclick="showPage('analytics'); closeSidebar();" class="nav-link">
                 <span class="nav-icon">▤</span>
                 <span>Analytics</span>
             </a>
-            <a href="#" onclick="showPage('profile')" class="nav-link">
+            <a href="#" onclick="showPage('profile'); closeSidebar();" class="nav-link">
                 <span class="nav-icon">◈</span>
                 <span>Profile</span>
             </a>
-            <a href="#" onclick="showPage('settings')" class="nav-link">
+            <a href="#" onclick="showPage('settings'); closeSidebar();" class="nav-link">
                 <span class="nav-icon">⚙</span>
                 <span>Settings</span>
             </a>
@@ -614,17 +614,29 @@
 
         // Theme toggle
         function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+            
+            // Update theme toggle icon
+            const themeToggle = document.querySelector('.theme-toggle i');
+            if (themeToggle) {
+                themeToggle.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
         }
         
         // Load saved theme
         function loadTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            // Update theme toggle icon based on saved theme
+            const themeToggle = document.querySelector('.theme-toggle i');
+            if (themeToggle) {
+                themeToggle.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
         }
         
         // Close dropdown when clicking outside
