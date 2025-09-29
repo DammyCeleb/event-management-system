@@ -4,8 +4,8 @@
   "description": "EventHub Frontend",
   "main": "index.html",
   "scripts": {
-    "start": "npx http-server . -p 3000 -c-1",
-    "dev": "npx http-server . -p 3000 -c-1 -o"
+    "start": "node init && npx http-server . -p 3000 -c-1",
+    "dev": "node init && npx http-server . -p 3000 -c-1 -o"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
